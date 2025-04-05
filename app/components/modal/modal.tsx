@@ -21,11 +21,13 @@ interface ModalProps {
   disabled?: boolean;
   secondaryAction?: () => void;
   secondaryActionText?: string;
+  footer?: any;
 }
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
+    minWidth: "500px",
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
@@ -42,19 +44,18 @@ const Modal: FC<ModalProps> = ({
   disabled,
   secondaryAction,
   secondaryActionText,
+  footer,
 }) => {
   const [open, setOpen] = useState(isOpen);
-  console.log("isOpen in modal111", isOpen);
 
   useEffect(() => {
-    console.log("isOpen in modal222", isOpen);
     setOpen(isOpen);
   }, [isOpen]);
 
   const handleSubmit = useCallback(() => {
     if (disabled) return;
     onSubmit();
-    handleClose();
+    // handleClose();
   }, [disabled, onSubmit]);
 
   const handleClose = useCallback(() => {
@@ -94,10 +95,9 @@ const Modal: FC<ModalProps> = ({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom></Typography>
-          <Typography gutterBottom></Typography>
-          <Typography gutterBottom>{body}</Typography>
+          <div>{body}</div>
         </DialogContent>
+        <DialogContent>{footer}</DialogContent>
         <DialogActions>
           {secondaryAction && secondaryActionText && (
             <Button onClick={handleSecondaryAction}>secondary</Button>
