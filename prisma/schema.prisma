@@ -23,6 +23,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   favoriteIds String[]@db.ObjectId
+  emailVerified DateTime? // Optional field to track email verification
 
 
   accounts Account[]
@@ -66,10 +67,11 @@ model Account {
   userId    String   @db.ObjectId
   provider  String   // e.g., 'google', 'facebook'
   providerAccountId String
+  type                 String?  
   refreshToken String?
-  accessToken String?
+  access_token String?
   expiresAt Int?
-  tokenType String?
+  token_type String?
   scope String?
   idToken String?
   sessionState String?

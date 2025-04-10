@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import axios from "axios";
 import Heading from "../Heading";
 import Input from "../inputs/input";
@@ -50,6 +51,19 @@ const RegisterModal = () => {
     }
   };
 
+  const handleGitHubSignIn = async () => {
+    const response = await signIn("github", {
+      redirect: false,
+      // callbackUrl: "/",
+    });
+
+    if (response?.error) {
+      alert("Error during GitHub login: " + response.error);
+    } else {
+      // router.push("/dashboard");
+    }
+  };
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome to here" />
@@ -86,10 +100,10 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       {/* <hr className="w-full" /> */}
-      <Button variant="contained" onClick={() => {}}>
+      {/* <Button variant="contained" onClick={() => {}}>
         Continue with Google
-      </Button>
-      <Button variant="contained" onClick={() => {}}>
+      </Button> */}
+      <Button variant="contained" onClick={() => signIn("github")}>
         Continue with Github
       </Button>
       <div className=" text-neutral-300      ">

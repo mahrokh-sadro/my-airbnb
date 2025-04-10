@@ -1,33 +1,25 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoginModal from "./components/modal/LoginModal";
 import Modal from "./components/modal/modal";
 import RegisterModal from "./components/modal/RegisterModal";
 import Navbar from "./components/navbar/Navbar";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await fetch("/api/auth/user/me");
-      console.log("response", response);
-      if (response.ok) {
-        const data = await response.json();
-        console.log("User data:", data);
-      }
-      // else {
-      //   setUser(null); // User is not authenticated
-      // }
+  // const { data: session, status } = useSession();
+  // const [user, setUser] = useState(null);
 
-      // setLoading(false); // Stop loading after the request
-    };
-
-    fetchUserData();
-  }, []);
-
+  // useEffect(() => {
+  //   console.log("session", session);
+  //   if (session?.user) {
+  //     setUser(session?.user);
+  //   }
+  // }, [session]);
   return (
     <div>
       <Navbar />
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
       {/* <Modal isOpen={true} actionLabel={"aaaaaaaaa"} /> */}
       <RegisterModal />
       <LoginModal />

@@ -11,14 +11,15 @@ const prisma = new PrismaClient();
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
+
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: "Ov23li9chNwCqXlQ8CA6",
+      clientSecret: "95066c3425032ce5122bd77fa8e741d7d85632d8",
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -46,6 +47,30 @@ export const authOptions = {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log("🟢 JWT Callback Token:", token); // Info log
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.image = user.image;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      console.log("🟣 Session Callback Token:", token); // Debug log
+      if (token) {
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.image = token.image;
+      }
+      return session;
+    },
+  },
+
   session: {
     strategy: "jwt",
   },
@@ -53,7 +78,7 @@ export const authOptions = {
     signIn: "/",
     error: "/",
   },
-  secret: process.env.NEXTAUTH_SECRET || "your-secret-key",
+  secret: "nextauth-secret",
   debug: process.env.NODE_ENV === "development",
 };
 

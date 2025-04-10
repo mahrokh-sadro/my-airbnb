@@ -3,8 +3,13 @@
 import Image from "next/image";
 import { useState } from "react";
 import UserMenu from "./UserManu";
+import { User } from "@prisma/client";
 
-const Avatar = () => {
+interface AvatarProps {
+  currentUser?: User;
+}
+
+const Avatar = ({ currentUser }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const onClick = () => {
@@ -20,7 +25,7 @@ const Avatar = () => {
         width={30}
         height={30}
       />
-      {isMenuOpen && <UserMenu />}
+      {isMenuOpen && <UserMenu currentUser={currentUser} />}
     </div>
   );
 };

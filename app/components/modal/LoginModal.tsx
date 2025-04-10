@@ -12,7 +12,8 @@ import Input from "../inputs/input";
 import { Button } from "@mui/material";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
+import { User } from "@prisma/client";
 
 // Zod schema for validation
 const schema = z.object({
@@ -22,12 +23,16 @@ const schema = z.object({
 
 type LoginFormData = z.infer<typeof schema>;
 
-const LoginModal = () => {
+interface LoginModalProps {
+  currentUser?: User;
+}
+
+const LoginModal = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
 
   const {
     register,
@@ -43,15 +48,17 @@ const LoginModal = () => {
     try {
       const response = await signIn("credentials", {
         ...data,
-        redirect: false,
+        redirect: true,
+        callbackUrl: "/",
       });
 
       if (response?.error) {
         alert(response.error);
       } else {
-        alert("Login successful!");
-        router.refresh();
+        // alert("Login successful!");
         loginModal.onClose();
+
+        // router.push(router.asPath); // This will reload the page
       }
     } catch (error) {
       console.error("Login error:", error);

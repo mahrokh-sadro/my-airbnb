@@ -3,20 +3,54 @@
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 
-const UserMenu: React.FC = () => {
+import { signOut } from "next-auth/react";
+
+interface UserMenuProps {
+  currentUser?: any;
+}
+
+const UserMenu: React.FC = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
   return (
     <div className="absolute top-16 right-0 w-48 bg-white shadow-lg rounded-lg p-4 z-10">
-      <ul>
-        <li className="py-2 hover:bg-gray-100" onClick={loginModal.onOpen}>
-          Login
-        </li>
-        <li className="py-2 hover:bg-gray-100" onClick={registerModal.onOpen}>
-          Sign up
-        </li>
-      </ul>
+      {currentUser ? (
+        <>
+          <ul>
+            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+              My Trips
+            </li>
+            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+              MY Favorites
+            </li>
+            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+              My Reservations
+            </li>
+            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+              My Properties
+            </li>
+            <hr className="border-b my-2" />
+            <li className="py-2 hover:bg-gray-100" onClick={() => signOut()}>
+              Logout
+            </li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <ul>
+            <li className="py-2 hover:bg-gray-100" onClick={loginModal.onOpen}>
+              Login
+            </li>
+            <li
+              className="py-2 hover:bg-gray-100"
+              onClick={registerModal.onOpen}
+            >
+              Sign up
+            </li>
+          </ul>
+        </>
+      )}
     </div>
   );
 };
