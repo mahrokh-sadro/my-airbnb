@@ -97,7 +97,7 @@ const LoginModal = ({ currentUser }) => {
       <Button variant="contained" onClick={() => {}}>
         Continue with Google
       </Button>
-      <Button variant="contained" onClick={() => {}}>
+      <Button variant="contained" onClick={() => signIn("github")}>
         Continue with Github
       </Button>
       <div className=" text-neutral-300      ">

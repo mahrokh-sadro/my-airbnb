@@ -20,7 +20,7 @@ const Avatar = ({ currentUser }) => {
     <div className="cursor-pointer" onClick={onClick}>
       <Image
         className="rounded-full object-contain"
-        src="/images/1.jpg"
+        src={currentUser?.image || "/images/1.jpg"}
         alt="Logo"
         width={30}
         height={30}

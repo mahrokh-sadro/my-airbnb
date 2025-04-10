@@ -29,14 +29,13 @@ export default async function RootLayout({
 }>) {
   // Fetch session from server-side using getServerSession
   const session = await getServerSession(authOptions);
-  console.log("session in RootLayout: ", session); // Logs the session object
+  console.log("session in RootLayout: ", session);
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Use SessionProvider and pass session */}
         <SessionProviderWrapper session={session}>
           {children}
         </SessionProviderWrapper>

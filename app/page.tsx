@@ -12,9 +12,7 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar currentUser={session} />
-      {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
-      {/* <Modal isOpen={true} actionLabel={"aaaaaaaaa"} /> */}
+      <Navbar currentUser={session?.user} />
       <RegisterModal />
       <LoginModal />
     </div>
