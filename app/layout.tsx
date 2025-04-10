@@ -1,10 +1,11 @@
-// app/layout.tsx (Server Component)
+// app/layout.tsx (or RootLayout)
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react"; // Import SessionProvider directly
+import { authOptions } from "./api/auth/[...nextauth]/route"; // Import authOptions
+import SessionProviderWrapper from "./components/SessionProviderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: ReactNode;
+  children: React.ReactNode;
 }>) {
   // Fetch session from server-side using getServerSession
   const session = await getServerSession(authOptions);
@@ -35,8 +36,10 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Pass the session as a prop to the Client Component */}
-        {children}
+        {/* Use SessionProvider and pass session */}
+        <SessionProviderWrapper session={session}>
+          {children}
+        </SessionProviderWrapper>
       </body>
     </html>
   );

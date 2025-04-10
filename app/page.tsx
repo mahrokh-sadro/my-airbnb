@@ -7,18 +7,12 @@ import Navbar from "./components/navbar/Navbar";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
-  // const { data: session, status } = useSession();
-  // const [user, setUser] = useState(null);
+  const { data: session, status } = useSession();
+  console.log("session in Home: ", session);
 
-  // useEffect(() => {
-  //   console.log("session", session);
-  //   if (session?.user) {
-  //     setUser(session?.user);
-  //   }
-  // }, [session]);
   return (
     <div>
-      <Navbar />
+      <Navbar currentUser={session} />
       {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
       {/* <Modal isOpen={true} actionLabel={"aaaaaaaaa"} /> */}
       <RegisterModal />
