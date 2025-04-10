@@ -1,5 +1,4 @@
 // app/api/auth/[...nextauth]/route.ts
-
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
@@ -10,7 +9,7 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-const handler = NextAuth({
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -28,18 +27,11 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("credentials:", credentials); // Should log credentials
-
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
-        }
-
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials?.email },
         });
-        console.log("User found:", user); // Should log the user object
+
         if (!user || !user.password) {
-          console.log(1111111);
           throw new Error("Invalid credentials");
         }
 
@@ -47,7 +39,6 @@ const handler = NextAuth({
           credentials.password,
           user.password
         );
-        console.log("Password comparison result:", isCorrectPassword); // Should log comparison result
 
         if (!isCorrectPassword) return null;
 
@@ -55,16 +46,16 @@ const handler = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/",
-    error: "/",
-    verifyRequest: "/",
-  },
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET || "",
+  pages: {
+    signIn: "/",
+    error: "/",
+  },
+  secret: process.env.NEXTAUTH_SECRET || "your-secret-key",
   debug: process.env.NODE_ENV === "development",
-});
+};
 
-export { handler as GET, handler as POST };
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST, authOptions };
