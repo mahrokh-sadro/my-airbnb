@@ -5,7 +5,7 @@ import Modal from "./modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import Heading from "../Heading";
 import Input from "../inputs/input";
@@ -92,6 +92,11 @@ const LoginModal = ({ currentUser }) => {
     </div>
   );
 
+  const handleSignUpToggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <Button variant="contained" onClick={() => signIn("google")}>
@@ -102,12 +107,12 @@ const LoginModal = ({ currentUser }) => {
       </Button>
       <div className=" text-neutral-300      ">
         <div className="flex flex-row items-center justify-center gap-2 mt-4">
-          <div>Already have an account?</div>
+          <div>First time using us?</div>
           <div
             className="cursor-pointer text-neutral-800"
-            onClick={registerModal.onClose}
+            onClick={handleSignUpToggle}
           >
-            Log in
+            Sign up
           </div>
         </div>
       </div>

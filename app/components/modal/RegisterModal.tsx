@@ -5,13 +5,14 @@ import Modal from "./modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
 import axios from "axios";
 import Heading from "../Heading";
 import Input from "../inputs/input";
 import { Button } from "@mui/material";
 import { sign } from "crypto";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 // Zod schema for validation
 const schema = z.object({
@@ -25,6 +26,7 @@ type RegisterFormData = z.infer<typeof schema>;
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
+  const loginModal = useLoginModal();
 
   const {
     register,
@@ -52,18 +54,18 @@ const RegisterModal = () => {
     }
   };
 
-  const handleGitHubSignIn = async () => {
-    const response = await signIn("github", {
-      redirect: false,
-      // callbackUrl: "/",
-    });
+  // const handleGitHubSignIn = async () => {
+  //   const response = await signIn("github", {
+  //     redirect: false,
+  //     // callbackUrl: "/",
+  //   });
 
-    if (response?.error) {
-      alert("Error during GitHub login: " + response.error);
-    } else {
-      // router.push("/dashboard");
-    }
-  };
+  //   if (response?.error) {
+  //     alert("Error during GitHub login: " + response.error);
+  //   } else {
+  //     // router.push("/dashboard");
+  //   }
+  // };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -98,6 +100,11 @@ const RegisterModal = () => {
     </div>
   );
 
+  const handleSignUpToggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       {/* <hr className="w-full" /> */}
@@ -112,7 +119,7 @@ const RegisterModal = () => {
           <div>Already have an account?</div>
           <div
             className="cursor-pointer text-neutral-800"
-            onClick={registerModal.onClose}
+            onClick={handleSignUpToggle}
           >
             Log in
           </div>

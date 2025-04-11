@@ -102,7 +102,7 @@ const Modal: FC<ModalProps> = ({
           {secondaryAction && secondaryActionText && (
             <Button onClick={handleSecondaryAction}>secondary</Button>
           )}
-          <Button autoFocus onClick={handleSubmit}>
+          <Button autoFocus className="w-full" onClick={handleSubmit}>
             {actionLabel}
           </Button>
         </DialogActions>
