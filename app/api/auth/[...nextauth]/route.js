@@ -48,8 +48,9 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      console.log("🟢 JWT Callback Token:", token); // Info log
+    async jwt({ token, user, account }) {
+      // console.log("🟢 JWT Callback Token:", token); // Info log
+
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -60,7 +61,7 @@ export const authOptions = {
     },
 
     async session({ session, token }) {
-      console.log("🟣 Session Callback Token:", token); // Debug log
+      // console.log("🟣 Session Callback Token:", token); // Debug log
       if (token) {
         session.user.id = token.id;
         session.user.email = token.email;

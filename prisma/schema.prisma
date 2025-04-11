@@ -70,10 +70,11 @@ model Account {
   type                 String?  
   refreshToken String?
   access_token String?
-  expiresAt Int?
+  expires_at Int?
   token_type String?
   scope String?
-  idToken String?
+  // idToken String?
+  id_token String?
   sessionState String?
 
   user      User     @relation(fields: [userId], references: [id],onDelete: Cascade)

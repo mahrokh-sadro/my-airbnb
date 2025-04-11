@@ -94,7 +94,7 @@ const LoginModal = ({ currentUser }) => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      <Button variant="contained" onClick={() => {}}>
+      <Button variant="contained" onClick={() => signIn("google")}>
         Continue with Google
       </Button>
       <Button variant="contained" onClick={() => signIn("github")}>

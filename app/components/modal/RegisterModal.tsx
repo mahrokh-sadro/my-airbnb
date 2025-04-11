@@ -11,6 +11,7 @@ import axios from "axios";
 import Heading from "../Heading";
 import Input from "../inputs/input";
 import { Button } from "@mui/material";
+import { sign } from "crypto";
 
 // Zod schema for validation
 const schema = z.object({
@@ -100,9 +101,9 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       {/* <hr className="w-full" /> */}
-      {/* <Button variant="contained" onClick={() => {}}>
+      <Button variant="contained" onClick={() => signIn("google")}>
         Continue with Google
-      </Button> */}
+      </Button>
       <Button variant="contained" onClick={() => signIn("github")}>
         Continue with Github
       </Button>

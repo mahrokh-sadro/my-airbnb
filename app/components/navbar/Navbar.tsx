@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 import Avatar from "./Avatar";
 import UserMenu from "./UserManu";
 import { User } from "@prisma/client";
+import Categories from "./Categories";
 
 interface NavbarProps {
   currentUser?: User;

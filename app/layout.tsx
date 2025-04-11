@@ -6,6 +6,8 @@ import { getServerSession } from "next-auth";
 import { SessionProvider } from "next-auth/react"; // Import SessionProvider directly
 import { authOptions } from "./api/auth/[...nextauth]/route"; // Import authOptions
 import SessionProviderWrapper from "./components/SessionProviderWrapper";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +31,7 @@ export default async function RootLayout({
 }>) {
   // Fetch session from server-side using getServerSession
   const session = await getServerSession(authOptions);
-  console.log("session in RootLayout: ", session);
+  // console.log("session in RootLayout: ", session);
 
   return (
     <html lang="en">
