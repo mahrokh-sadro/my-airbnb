@@ -15,47 +15,90 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { User } from "@prisma/client";
 import useRentModal from "@/app/hooks/useRentModal";
-
-// Zod schema for validation
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
-
-type LoginFormData = z.infer<typeof schema>;
+import { categories } from "../constants/categoriesArray";
+import CategoryInput from "../inputs/CategoryInput";
 
 interface RentModalProps {
   currentUser?: User;
 }
 
+const STEPS = {
+  CATEGORY: 0,
+  LOCATION: 1,
+  INFO: 2,
+  AMENITIES: 3,
+  IMAGES: 4,
+  DESCRIPTION: 5,
+  PRICE: 6,
+};
+
+const schema = z.object({
+  category: z.string(), // we’ll just start with category
+  // add more fields later like location, price, etc.
+});
+
 const RentModal = ({ currentUser }) => {
   const rentModal = useRentModal();
-
   const [isLoading, setIsLoading] = useState(false);
-  // const router = useRouter();
+  const [step, setStep] = useState(STEPS.CATEGORY);
+  // const onNext = () => setStep((prev) => prev + 1);
+  // const onBack = () => setStep((prev) => prev - 1);
+  const onNext = () => setStep((prev) => prev + 1);
+  const onBack = () => setStep((prev) => prev - 1);
+  const actionLabel = step === STEPS.PRICE ? "Create" : "Next";
+  const secondaryActionLabel = step === STEPS.CATEGORY ? undefined : "Back";
 
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
-  } = useForm<LoginFormData>({
+  } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      category: "",
+    },
   });
 
-  // const onSubmit = async (data: LoginFormData) => {};
+  const category = watch("category");
 
-  // const bodyContent = <div className="flex flex-col gap-4"></div>;
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading title="Which of these best describes your place?" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-h-[50vh] overflow-y-auto gap-3">
+        {categories.map((item) => (
+          <div key={item.name} className="col-span-1">
+            {/* {item.name} */}
+            <CategoryInput
+              onClick={() =>
+                setValue("category", item.name, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                  shouldValidate: true,
+                })
+              }
+              selected={category === item.name}
+              label={item.name}
+              icon={item.icon}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <Modal
       disabled={isLoading}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      // onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onNext}
       title="Airbnb your home"
-      // body={bodyContent}
-      // actionLabel={isLoading ? "Submitting..." : "Continue"}
-      // footer={footerContent}
+      body={bodyContent}
+      actionLabel={actionLabel}
+      secondaryActionLabel={secondaryActionLabel}
+      secondaryAction={onBack}
     />
   );
 };

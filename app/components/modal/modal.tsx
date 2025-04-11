@@ -20,7 +20,7 @@ interface ModalProps {
   actionLabel?: string;
   disabled?: boolean;
   secondaryAction?: () => void;
-  secondaryActionText?: string;
+  secondaryActionLabel?: string;
   footer?: any;
 }
 
@@ -43,7 +43,7 @@ const Modal: FC<ModalProps> = ({
   actionLabel,
   disabled,
   secondaryAction,
-  secondaryActionText,
+  secondaryActionLabel,
   footer,
 }) => {
   const [open, setOpen] = useState(isOpen);
@@ -99,7 +99,7 @@ const Modal: FC<ModalProps> = ({
         </DialogContent>
         <DialogContent>{footer}</DialogContent>
         <DialogActions>
-          {secondaryAction && secondaryActionText && (
+          {secondaryAction && secondaryActionLabel && (
             <Button onClick={handleSecondaryAction}>secondary</Button>
           )}
           <Button autoFocus className="w-full" onClick={handleSubmit}>

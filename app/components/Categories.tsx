@@ -2,68 +2,11 @@
 
 import React, { useCallback } from "react";
 import Slider from "react-slick";
-import {
-  FaGolfBall,
-  FaBeach,
-  FaMountain,
-  FaBicycle,
-  FaSwimmingPool,
-  FaCamera,
-  FaSpa,
-  FaShoppingCart,
-  FaPlane,
-  FaWineGlass,
-  FaUtensils,
-  FaTree,
-  FaMusic,
-  FaBook,
-  FaPaintBrush,
-  FaHome,
-  FaWheelchair,
-} from "react-icons/fa";
+
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import qs from "query-string";
-const categories = [
-  { name: "Beaches", icon: <FaGolfBall className="text-6xl text-blue-500" /> },
-  { name: "Golfing", icon: <FaGolfBall className="text-6xl text-green-500" /> },
-  {
-    name: "Surfing",
-    icon: <FaGolfBall className="text-6xl text-orange-500" />,
-  },
-  {
-    name: "Mountains",
-    icon: <FaGolfBall className="text-6xl text-purple-500" />,
-  },
-  { name: "Hiking", icon: <FaGolfBall className="text-6xl text-red-500" /> },
-  { name: "Swimming", icon: <FaGolfBall className="text-6xl text-teal-500" /> },
-  {
-    name: "Photography",
-    icon: <FaGolfBall className="text-6xl text-pink-500" />,
-  },
-  { name: "Spas", icon: <FaGolfBall className="text-6xl text-gray-500" /> },
-  {
-    name: "Bicycling",
-    icon: <FaGolfBall className="text-6xl text-yellow-500" />,
-  },
-  {
-    name: "Shopping",
-    icon: <FaGolfBall className="text-6xl text-indigo-500" />,
-  },
-  { name: "Travel", icon: <FaGolfBall className="text-6xl text-cyan-500" /> },
-  { name: "Wine", icon: <FaGolfBall className="text-6xl text-teal-500" /> },
-  { name: "Food", icon: <FaGolfBall className="text-6xl text-orange-600" /> },
-  { name: "Nature", icon: <FaGolfBall className="text-6xl text-green-700" /> },
-  { name: "Music", icon: <FaGolfBall className="text-6xl text-blue-600" /> },
-  { name: "Books", icon: <FaGolfBall className="text-6xl text-yellow-500" /> },
-  { name: "Arts", icon: <FaGolfBall className="text-6xl text-red-500" /> },
-  { name: "Home", icon: <FaGolfBall className="text-6xl text-purple-600" /> },
-  {
-    name: "Accessible",
-    icon: <FaGolfBall className="text-6xl text-blue-400" />,
-  },
-  { name: "Cycling", icon: <FaGolfBall className="text-6xl text-teal-600" /> },
-];
+import { categories } from "./constants/categoriesArray";
 
 const Categories = () => {
   const settings = {
