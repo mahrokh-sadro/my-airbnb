@@ -1,2 +1,9 @@
 @import "tailwindcss";
 /* In your globals.css or _app.css */
+
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-pane,
+.leaflet-top {
+  z-index: 0;
+}

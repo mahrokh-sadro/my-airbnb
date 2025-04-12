@@ -5,7 +5,7 @@ import Modal from "./modal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import axios from "axios";
 import Heading from "../Heading";
 import Input from "../inputs/input";
@@ -17,6 +17,9 @@ import { User } from "@prisma/client";
 import useRentModal from "@/app/hooks/useRentModal";
 import { categories } from "../constants/categoriesArray";
 import CategoryInput from "../inputs/CategoryInput";
+import CountrySelect from "../inputs/CountrySelect";
+import Map from "../Map";
+import dynamic from "next/dynamic";
 
 interface RentModalProps {
   currentUser?: User;
@@ -62,8 +65,17 @@ const RentModal = ({ currentUser }) => {
   });
 
   const category = watch("category");
+  const location = watch("location");
 
-  const bodyContent = (
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("@/app/components/Map"), {
+        ssr: false,
+      }),
+    []
+  );
+
+  let bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Which of these best describes your place?" />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-h-[50vh] overflow-y-auto gap-3">
@@ -87,6 +99,25 @@ const RentModal = ({ currentUser }) => {
       </div>
     </div>
   );
+
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-4 mb-4">
+        <Heading title="Where is your place located?" />
+        <CountrySelect
+          value={location}
+          onChange={(value) =>
+            setValue("location", value, {
+              shouldDirty: true,
+              shouldTouch: true,
+              shouldValidate: true,
+            })
+          }
+        />
+        <Map />
+      </div>
+    );
+  }
 
   return (
     <Modal
