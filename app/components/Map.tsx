@@ -8,9 +8,9 @@ import "leaflet/dist/leaflet.css";
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconUrl: "/leaflet/images/marker-icon.png",
-  iconRetinaUrl: "/leaflet/images/marker-icon-2x.png",
-  shadowUrl: "/leaflet/images/marker-shadow.png",
+  iconUrl: "/images/marker-icon-2x.png",
+  iconRetinaUrl: "/images/marker-icon-2x.png",
+  shadowUrl: "/images/marker-shadow.png",
 });
 
 interface MapProps {
