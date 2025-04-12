@@ -72,7 +72,7 @@ const RentModal = ({ currentUser }) => {
       dynamic(() => import("@/app/components/Map"), {
         ssr: false,
       }),
-    []
+    [location]
   );
 
   let bodyContent = (
@@ -114,7 +114,9 @@ const RentModal = ({ currentUser }) => {
             })
           }
         />
-        <Map />
+        <div className="h-[35vh] w-full overflow-hidden rounded-lg z-0">
+          <Map center={location?.latlng || [51.505, -0.09]} />
+        </div>
       </div>
     );
   }

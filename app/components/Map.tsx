@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
-import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
+import React, { useEffect } from "react";
+import { MapContainer, Marker, TileLayer, useMap, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -11,23 +13,41 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "/leaflet/images/marker-shadow.png",
 });
 
-const Map = () => (
-  <MapContainer
-    center={[51.505, -0.09]}
-    zoom={4}
-    scrollWheelZoom={false}
-    className="h-[35vh] rounded-lg"
-  >
-    <TileLayer
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-    {/* <Marker position={[51.505, -0.09]}>
-      <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
-      </Popup>
-    </Marker> */}
-  </MapContainer>
-);
+interface MapProps {
+  center: [number, number]; // LatLngTuple
+}
+
+const RecenterAndFixTiles = ({ center }: { center: [number, number] }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView(center, map.getZoom());
+    setTimeout(() => {
+      map.invalidateSize(); // Fix tile loading
+    }, 100);
+  }, [center, map]);
+
+  return null;
+};
+
+const Map = ({ center }: MapProps) => {
+  return (
+    <MapContainer
+      center={center}
+      zoom={4}
+      scrollWheelZoom={false}
+      className="h-[35vh] w-full rounded-lg"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Marker position={center as L.LatLngExpression}>
+        {/* <Popup>Selected location</Popup> */}
+      </Marker>
+      <RecenterAndFixTiles center={center} />
+    </MapContainer>
+  );
+};
 
 export default Map;
