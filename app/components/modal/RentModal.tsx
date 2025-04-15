@@ -20,6 +20,7 @@ import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
 import Map from "../Map";
 import dynamic from "next/dynamic";
+import CounterInput from "../inputs/CounterInput";
 
 interface RentModalProps {
   currentUser?: User;
@@ -36,8 +37,18 @@ const STEPS = {
 };
 
 const schema = z.object({
-  category: z.string(), // we’ll just start with category
-  // add more fields later like location, price, etc.
+  category: z.string(),
+  location: z.object({
+    latlng: z.tuple([z.number(), z.number()]),
+    label: z.string(),
+    region: z.string(),
+    value: z.string(),
+    flag: z.string(),
+  }),
+  guestCount: z.number().min(1, "At least one guest"),
+  roomCount: z.number().min(1, "At least one room"),
+  bathroomCount: z.number().min(1, "At least one bathroom"),
+  image: z.string().min(1, "Image is required"),
 });
 
 const RentModal = ({ currentUser }) => {
@@ -61,11 +72,25 @@ const RentModal = ({ currentUser }) => {
     resolver: zodResolver(schema),
     defaultValues: {
       category: "",
+      location: {
+        latlng: [51.505, -0.09],
+        label: "",
+        region: "",
+        value: "",
+        flag: "",
+      },
+      guestCount: 1,
+      roomCount: 1,
+      bathroomCount: 1,
     },
   });
 
   const category = watch("category");
   const location = watch("location");
+  const guestCount = watch("guestCount");
+  const roomCount = watch("roomCount");
+  const bathroomCount = watch("bathroomCount");
+  const image = watch("image");
 
   const Map = useMemo(
     () =>
@@ -117,6 +142,71 @@ const RentModal = ({ currentUser }) => {
         <div className="h-[35vh] w-full overflow-hidden rounded-lg z-0">
           <Map center={location?.latlng || [51.505, -0.09]} />
         </div>
+      </div>
+    );
+  }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some basics about your place"
+          subtitle="What amenities do you have?"
+        />
+        <CounterInput
+          title="Guests"
+          subtitle="How many guests do you allow?"
+          value={guestCount}
+          onChange={(value) =>
+            setValue("guestCount", value, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
+          }
+        />
+
+        <CounterInput
+          title="Rooms"
+          subtitle="How many rooms do you allow?"
+          value={roomCount}
+          onChange={(value) =>
+            setValue("roomCount", value, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
+          }
+        />
+
+        <CounterInput
+          title="Bathrooms"
+          subtitle="How many bathrooms do you allow?"
+          value={bathroomCount}
+          onChange={(value) =>
+            setValue("bathroomCount", value, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
+          }
+        />
+      </div>
+    );
+  }
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-4">
+        <Heading
+          title="Add a photo of your place"
+          subtitle="Show guests what your place looks like!"
+        />
+        <ImageUpload
+          value={image}
+          // onChange={(value) =>
+          //   setValue("image", value, {
+          //     shouldDirty: true,
+          //     shouldValidate: true,
+          //   })
+          // }
+        />
       </div>
     );
   }
