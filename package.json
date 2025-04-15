@@ -22,6 +22,7 @@
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "mongodb": "^6.15.0",
     "next": "^15.2.4",
+    "next-cloudinary": "^6.16.0",
     "postcss": "^8.5.3",
     "query-string": "^9.1.1",
     "react": "^19.1.0",

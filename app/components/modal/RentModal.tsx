@@ -21,6 +21,7 @@ import CountrySelect from "../inputs/CountrySelect";
 import Map from "../Map";
 import dynamic from "next/dynamic";
 import CounterInput from "../inputs/CounterInput";
+import ImageUpload from "../inputs/ImageUpload";
 
 interface RentModalProps {
   currentUser?: User;
@@ -30,10 +31,10 @@ const STEPS = {
   CATEGORY: 0,
   LOCATION: 1,
   INFO: 2,
-  AMENITIES: 3,
-  IMAGES: 4,
-  DESCRIPTION: 5,
-  PRICE: 6,
+  // AMENITIES: 3,
+  IMAGES: 3,
+  DESCRIPTION: 4,
+  PRICE: 5,
 };
 
 const schema = z.object({
@@ -48,6 +49,8 @@ const schema = z.object({
   guestCount: z.number().min(1, "At least one guest"),
   roomCount: z.number().min(1, "At least one room"),
   bathroomCount: z.number().min(1, "At least one bathroom"),
+  // amenities: z.array(z.string()).min(1, "Select at least one amenity"),
+
   image: z.string().min(1, "Image is required"),
 });
 
@@ -82,6 +85,8 @@ const RentModal = ({ currentUser }) => {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
+      // amenities: [],
+      image: "",
     },
   });
 
@@ -191,6 +196,7 @@ const RentModal = ({ currentUser }) => {
       </div>
     );
   }
+
   if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-4">
@@ -200,12 +206,12 @@ const RentModal = ({ currentUser }) => {
         />
         <ImageUpload
           value={image}
-          // onChange={(value) =>
-          //   setValue("image", value, {
-          //     shouldDirty: true,
-          //     shouldValidate: true,
-          //   })
-          // }
+          onChange={(value) =>
+            setValue("image", value, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
+          }
         />
       </div>
     );

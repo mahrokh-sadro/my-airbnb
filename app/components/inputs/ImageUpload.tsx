@@ -1,23 +1,48 @@
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+"use client";
+
+import React from "react";
 import { CldUploadWidget } from "next-cloudinary";
+import { Button } from "@mui/material";
 import Image from "next/image";
-import { TbPhotoPlus } from "react-icons/tb";
 
 interface ImageUploadProps {
-  onChange: (value: string) => void;
   value: string;
+  onChange: (value: string) => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
-  const handleUpload = useCallback(
-    (result: any) => {
-      onChange(result.info.secure_url);
-    },
-    [onChange]
-  );
+  const handleUpload = (result: any) => {
+    onChange(result.info.secure_url);
+  };
 
-  return <div></div>;
+  return (
+    <div className="relative w-full h-64">
+      {" "}
+      <CldUploadWidget
+        uploadPreset="airbnb_uploads"
+        onSuccess={handleUpload}
+        options={{ maxFiles: 1 }}
+      >
+        {({ open }) => (
+          <div onClick={() => open?.()}>
+            {value ? (
+              <div className="absolute top-0 left-0 w-full h-full">
+                <Image
+                  src={value}
+                  alt="Uploaded"
+                  layout="fill"
+                  objectFit="cover"
+                  style={{ borderRadius: "8px" }}
+                />
+              </div>
+            ) : (
+              <Button variant="outlined">Click to Upload</Button>
+            )}
+          </div>
+        )}
+      </CldUploadWidget>
+    </div>
+  );
 };
 
 export default ImageUpload;
