@@ -287,10 +287,10 @@ const RentModal = ({ currentUser }) => {
     try {
       const response = await axios.post("/api/listings", data);
       console.log("Form submitted successfully", response.data);
-      // router.refresh();
-      // reset();
-      // setStep(STEPS.CATEGORY);
-      // rentModal.onClose();
+      router.refresh();
+      reset();
+      setStep(STEPS.CATEGORY);
+      rentModal.onClose();
     } catch (error) {
       console.error("Error submitting the form:", error);
     } finally {
