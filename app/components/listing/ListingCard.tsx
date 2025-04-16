@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { SafeListing } from "@/app/types"; // optional: define SafeListing if you're using types
 import { format } from "date-fns";
+import HeartButton from "./HeartButton";
 
 interface ListingCardProps {
   data: any;
@@ -11,6 +12,7 @@ interface ListingCardProps {
 
 const ListingCard: React.FC<ListingCardProps> = ({ data }) => {
   const router = useRouter();
+  const handleHeartClick = () => {};
 
   return (
     <div
@@ -24,6 +26,9 @@ const ListingCard: React.FC<ListingCardProps> = ({ data }) => {
           src={data.image}
           alt="Listing"
         />
+        <div className="absolute top-4 right-4">
+          <HeartButton />
+        </div>
       </div>
 
       <div className="mt-3 text-sm">
@@ -34,7 +39,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data }) => {
         <div className="flex justify-between items-center mt-1">
           <div className="text-gray-800 font-semibold">
             ${data.price}
-            <span className="text-sm font-normal text-gray-500"> / night</span>
+            <span className="text-sm font-normal text-gray-500"> night</span>
           </div>
         </div>
       </div>
