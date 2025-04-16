@@ -12,7 +12,7 @@ import Input from "../inputs/input";
 import { Button } from "@mui/material";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { User } from "@prisma/client";
 import useRentModal from "@/app/hooks/useRentModal";
 import { categories } from "../constants/categoriesArray";
@@ -52,6 +52,8 @@ const schema = z.object({
   // amenities: z.array(z.string()).min(1, "Select at least one amenity"),
 
   image: z.string().min(1, "Image is required"),
+  description: z.string().min(1, "Description is required"),
+  price: z.number().min(1, "Price must be at least 1"),
 });
 
 const RentModal = ({ currentUser }) => {
@@ -87,6 +89,8 @@ const RentModal = ({ currentUser }) => {
       bathroomCount: 1,
       // amenities: [],
       image: "",
+      description: "",
+      price: 1,
     },
   });
 
@@ -96,6 +100,7 @@ const RentModal = ({ currentUser }) => {
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
   const image = watch("image");
+  const price = watch("price");
 
   const Map = useMemo(
     () =>
@@ -206,25 +211,103 @@ const RentModal = ({ currentUser }) => {
         />
         <ImageUpload
           value={image}
-          onChange={(value) =>
+          onChange={(value) => {
+            console.log("img val", value);
             setValue("image", value, {
               shouldDirty: true,
               shouldValidate: true,
-            })
-          }
+            });
+          }}
         />
       </div>
     );
   }
+
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-4">
+        <Heading
+          title="How would you describe your place?"
+          subtitle="Short and sweet works best!"
+        />
+
+        <textarea
+          {...register("description", { required: true })}
+          rows={5}
+          disabled={isLoading}
+          className="w-full p-2 border border-gray-300 rounded-md resize-none"
+          placeholder="Write a description..."
+        />
+
+        {errors.description && (
+          <p className="text-sm text-red-500">Description is required</p>
+        )}
+      </div>
+    );
+  }
+
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-4">
+        <Heading
+          title="Now, set your price"
+          subtitle="How much do you charge per night?"
+        />
+
+        <div className="w-full flex items-center gap-2">
+          <span className="text-xl">$</span>
+          <input
+            id="price"
+            type="number"
+            {...register("price", { required: true })}
+            disabled={isLoading}
+            onChange={(e) => {
+              setValue("price", +e.target.value, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+            }}
+            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+            placeholder="Enter your price"
+          />
+        </div>
+
+        {errors.price && (
+          <p className="text-sm text-red-500">Price is required</p>
+        )}
+      </div>
+    );
+  }
+  const router = useRouter();
+
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post("/api/listings", data);
+      console.log("Form submitted successfully", response.data);
+      setStep(STEPS.CATEGORY);
+      router.refresh();
+      // reset();
+      rentModal.onClose();
+    } catch (error) {
+      console.error("Error submitting the form:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Modal
       disabled={isLoading}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={onNext}
+      onSubmit={step === STEPS.PRICE ? handleSubmit(onSubmit) : onNext}
       title="Airbnb your home"
-      body={bodyContent}
+      body={
+        <div className="min-h-[300px] flex flex-col justify-between">
+          {bodyContent}
+        </div>
+      }
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={onBack}
