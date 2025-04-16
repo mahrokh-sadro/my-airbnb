@@ -1,6 +1,9 @@
 // components/listing/HeartButton.tsx
 import { User } from "@prisma/client";
-import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useMemo, useState } from "react";
+import { toast } from "react-hot-toast";
 
 interface HeartButtonProps {
   listingId: string;
@@ -11,9 +14,54 @@ const HeartButton: React.FC<HeartButtonProps> = ({
   listingId,
   currentUser,
 }) => {
-  const isLiked = false;
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  // console.log("currentUser- heart------------>", currentUser);
+
+  const isLiked = useMemo(() => {
+    const list = currentUser?.favoriteIds || [];
+    return list.includes(listingId);
+  }, [currentUser, listingId]);
+
+  const toggleFavorite = async () => {
+    if (!currentUser) {
+      return toast.error("Please log in to favorite listings.");
+    }
+
+    setLoading(true);
+
+    try {
+      if (isLiked) {
+        console.log("listingId", listingId);
+        await axios.delete(`/api/favorites/${listingId}`);
+        toast.success("Removed from favorites");
+      } else {
+        await axios.post(`/api/favorites/${listingId}`);
+        toast.success("Added to favorites");
+      }
+
+      router.refresh(); // Refetch data and re-render
+    } catch (error) {
+      // toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <button className={isLiked ? "fill-rose-500" : "fill-neutral-500/70"}>
+    <button
+      onClick={toggleFavorite}
+      disabled={loading}
+      className={`
+        transition 
+        cursor-pointer 
+        p-1 
+        rounded-full 
+        hover:bg-neutral-100 
+        ${isLiked ? "text-rose-500" : "text-neutral-400"}
+      `}
+    >
       {isLiked ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

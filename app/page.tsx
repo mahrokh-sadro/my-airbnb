@@ -6,6 +6,7 @@ import LoginModal from "./components/modal/LoginModal";
 import RentModal from "./components/modal/RentModal";
 import Categories from "./components/Categories";
 import ListingCard from "./components/listing/ListingCard";
+import { Toaster } from "react-hot-toast";
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
@@ -19,6 +20,7 @@ export default async function Home() {
       <LoginModal />
       <RentModal />
       <Categories />
+      <Toaster />
 
       {listings.length === 0 ? (
         <div className="flex justify-center items-center h-[40vh] text-gray-600 text-lg">
@@ -27,7 +29,11 @@ export default async function Home() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 px-4">
           {listings.map((listing) => (
-            <ListingCard key={listing.id} data={listing} />
+            <ListingCard
+              key={listing.id}
+              data={listing}
+              currentUser={currentUser}
+            />
           ))}
         </div>
       )}
