@@ -72,6 +72,7 @@ const RentModal = ({ currentUser }) => {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -212,7 +213,6 @@ const RentModal = ({ currentUser }) => {
         <ImageUpload
           value={image}
           onChange={(value) => {
-            console.log("img val", value);
             setValue("image", value, {
               shouldDirty: true,
               shouldValidate: true,
@@ -256,19 +256,21 @@ const RentModal = ({ currentUser }) => {
 
         <div className="w-full flex items-center gap-2">
           <span className="text-xl">$</span>
-          <input
+          <Input
             id="price"
             type="number"
-            {...register("price", { required: true })}
+            register={register}
             disabled={isLoading}
-            onChange={(e) => {
-              setValue("price", +e.target.value, {
-                shouldValidate: true,
-                shouldDirty: true,
-              });
-            }}
-            className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-            placeholder="Enter your price"
+            errors={errors}
+            required
+            // onChange={(e) => {
+            //   setValue("price", Number(e.target.value), {
+            //     shouldValidate: true,
+            //     shouldDirty: true,
+            //   });
+            // }}
+            // className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+            // placeholder="Enter your price"
           />
         </div>
 
@@ -285,10 +287,10 @@ const RentModal = ({ currentUser }) => {
     try {
       const response = await axios.post("/api/listings", data);
       console.log("Form submitted successfully", response.data);
-      setStep(STEPS.CATEGORY);
-      router.refresh();
+      // router.refresh();
       // reset();
-      rentModal.onClose();
+      // setStep(STEPS.CATEGORY);
+      // rentModal.onClose();
     } catch (error) {
       console.error("Error submitting the form:", error);
     } finally {
