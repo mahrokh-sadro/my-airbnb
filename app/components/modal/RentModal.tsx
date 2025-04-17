@@ -286,7 +286,6 @@ const RentModal = ({ currentUser }) => {
     setIsLoading(true);
     try {
       const response = await axios.post("/api/listings", data);
-      console.log("Form submitted successfully", response.data);
       router.refresh();
       reset();
       setStep(STEPS.CATEGORY);

@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
-  console.log("Request Received:----------------->", request);
   // return new Response("yay11!", { status: 200 });
   try {
     // Use request.json() provided by NextRequest

@@ -39,14 +39,9 @@ const RegisterModal = () => {
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
     try {
-      console.log("-------->", data);
       axios.post("/api/register", data).then((response) => {
-        console.log("Registration successful:", response.data);
         registerModal.onClose();
       });
-      // fetch("/api/register")
-      //   .then((res) => res.json())
-      //   .then((data) => console.log(data));
     } catch (error) {
       console.error("Register error:", error);
     } finally {

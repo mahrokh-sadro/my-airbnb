@@ -19,7 +19,6 @@ interface NavbarProps {
 }
 
 const Navbar = ({ currentUser }) => {
-  // console.log("currentUser", currentUser);
   const router = useRouter();
   const rentModal = useRentModal();
   const loginModal = useLoginModal();

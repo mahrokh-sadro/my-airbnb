@@ -21,7 +21,6 @@ const HeartButton: React.FC<HeartButtonProps> = ({
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  // console.log("currentUser- heart------------>", currentUser);
 
   const isLiked = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
@@ -40,7 +39,6 @@ const HeartButton: React.FC<HeartButtonProps> = ({
 
     try {
       if (isLiked) {
-        console.log("listingId", listingId);
         await axios.delete(`/api/favorites/${listingId}`);
         toast.success("Removed from favorites");
       } else {

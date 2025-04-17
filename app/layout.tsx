@@ -31,7 +31,6 @@ export default async function RootLayout({
 }>) {
   // Fetch session from server-side using getServerSession
   const session = await getServerSession(authOptions);
-  // console.log("session in RootLayout: ", session);
 
   return (
     <html lang="en">
