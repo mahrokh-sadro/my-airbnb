@@ -9,10 +9,21 @@ import { User } from "@prisma/client";
 
 interface ListingCardProps {
   data: any;
+  reservation?: any;
+  onAction?: (id: string) => void;
+  disabled?: boolean;
+  actionLabel?: string;
   currentUser: User;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
+const ListingCard: React.FC<ListingCardProps> = ({
+  data,
+  reservation,
+  onAction,
+  disabled,
+  actionLabel,
+  currentUser,
+}) => {
   const router = useRouter();
   const handleHeartClick = () => {};
 
@@ -48,6 +59,19 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
           </div>
         </div>
       </div>
+      {onAction && actionLabel && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (disabled) return;
+            onAction(reservation?.id);
+          }}
+          disabled={disabled}
+          className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm disabled:opacity-50"
+        >
+          {actionLabel}
+        </button>
+      )}
     </div>
   );
 };

@@ -4,6 +4,8 @@ import { Reservation, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import Heading from "../components/Heading";
 import ListingCard from "../components/listing/ListingCard";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface TripsClientProps {
   reservations: Reservation[];
@@ -16,6 +18,17 @@ const TripsClient: React.FC<TripsClientProps> = ({
 }) => {
   const router = useRouter();
 
+  const onCancel = (id: string) => {
+    axios
+      .delete(`/api/reservations/${id}`)
+      .then(() => {
+        toast.success("Reservation cancelled");
+        router.refresh();
+      })
+      .catch(() => {
+        toast.error("Failed to cancel reservation");
+      });
+  };
   return (
     <div>
       <Heading
@@ -29,7 +42,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
             data={reservation.listing}
             reservation={reservation}
             actionLabel="Cancel reservation"
-            onAction={() => {}}
+            onAction={onCancel}
             disabled={false}
             currentUser={currentUser}
           />
