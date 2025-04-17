@@ -4,6 +4,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   currentUser?: any;
@@ -12,13 +13,17 @@ interface UserMenuProps {
 const UserMenu: React.FC = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const router = useRouter();
 
   return (
     <div className="absolute top-16 right-0 w-48 bg-white shadow-lg rounded-lg p-4 z-10">
       {currentUser ? (
         <>
           <ul>
-            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+            <li
+              className="py-2 hover:bg-gray-100"
+              onClick={() => router.push("/trips")}
+            >
               My Trips
             </li>
             <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
