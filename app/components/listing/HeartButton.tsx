@@ -4,6 +4,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
+import LoginModal from "../modal/LoginModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 interface HeartButtonProps {
   listingId: string;
@@ -14,6 +16,8 @@ const HeartButton: React.FC<HeartButtonProps> = ({
   listingId,
   currentUser,
 }) => {
+  const loginModal = useLoginModal();
+
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -26,8 +30,11 @@ const HeartButton: React.FC<HeartButtonProps> = ({
 
   const toggleFavorite = async () => {
     if (!currentUser) {
-      return toast.error("Please log in to favorite listings.");
+      return loginModal.onOpen();
     }
+    // if (!currentUser) {
+    //   return toast.error("Please log in to favorite listings.");
+    // }
 
     setLoading(true);
 
