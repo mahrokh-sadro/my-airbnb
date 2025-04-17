@@ -29,7 +29,10 @@ const UserMenu: React.FC = ({ currentUser }) => {
             <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
               MY Favorites
             </li>
-            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+            <li
+              className="py-2 hover:bg-gray-100"
+              onClick={() => router.push("/reservations")}
+            >
               My Reservations
             </li>
             <li className="py-2 hover:bg-gray-100" onClick={() => {}}>

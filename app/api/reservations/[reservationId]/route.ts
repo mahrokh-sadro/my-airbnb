@@ -16,13 +16,28 @@ export async function DELETE(
     return NextResponse.error();
   }
 
-  const paramsData = await params;
-  const reservation = await prisma.reservation.deleteMany({
-    where: {
-      id: paramsData?.reservationId,
-      userId: currentUser.id,
-    },
+  const { reservationId } = params;
+
+  if (!reservationId || typeof reservationId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const reservation = await prisma.reservation.findUnique({
+    where: { id: reservationId },
+    include: { listing: true }, // This will let us check if the currentUser is the host of the listing
   });
 
-  return NextResponse.json(reservation);
+  if (
+    !reservation ||
+    (reservation.userId !== currentUser.id &&
+      reservation.listing.userId !== currentUser.id)
+  ) {
+    return NextResponse.error();
+  }
+
+  const deletedReservation = await prisma.reservation.delete({
+    where: { id: reservationId },
+  });
+
+  return NextResponse.json(deletedReservation);
 }
