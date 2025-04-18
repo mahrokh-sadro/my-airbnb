@@ -38,7 +38,10 @@ const UserMenu: React.FC = ({ currentUser }) => {
             >
               My Reservations
             </li>
-            <li className="py-2 hover:bg-gray-100" onClick={() => {}}>
+            <li
+              className="py-2 hover:bg-gray-100"
+              onClick={() => router.push("/properties")}
+            >
               My Properties
             </li>
             <hr className="border-b my-2" />
