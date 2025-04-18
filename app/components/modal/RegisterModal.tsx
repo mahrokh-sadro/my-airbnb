@@ -41,6 +41,7 @@ const RegisterModal = () => {
     try {
       axios.post("/api/register", data).then((response) => {
         registerModal.onClose();
+        loginModal.onOpen();
       });
     } catch (error) {
       console.error("Register error:", error);

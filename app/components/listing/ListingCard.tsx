@@ -2,8 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { SafeListing } from "@/app/types"; // optional: define SafeListing if you're using types
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import HeartButton from "./HeartButton";
 import { User } from "@prisma/client";
 
