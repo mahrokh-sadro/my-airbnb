@@ -8,14 +8,20 @@ import Categories from "./components/Categories";
 import ListingCard from "./components/listing/ListingCard";
 import { Toaster } from "react-hot-toast";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: { category?: string };
+}) {
   const currentUser = await getCurrentUser();
-  const listings = await getListings();
-  // const listings = [];
+  const paramsData = await searchParams;
+
+  const listings = await getListings({
+    category: paramsData?.category,
+  });
 
   return (
     <div>
-      <Navbar currentUser={currentUser} />
       <RegisterModal />
       <LoginModal />
       <RentModal />

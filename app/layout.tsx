@@ -8,6 +8,8 @@ import { authOptions } from "./api/auth/[...nextauth]/route"; // Import authOpti
 import SessionProviderWrapper from "./components/SessionProviderWrapper";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Navbar from "./components/navbar/Navbar";
+import { getCurrentUser } from "./actions/getCurrentUser";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +33,7 @@ export default async function RootLayout({
 }>) {
   // Fetch session from server-side using getServerSession
   const session = await getServerSession(authOptions);
+  const currentUser = await getCurrentUser();
 
   return (
     <html lang="en">
@@ -38,6 +41,8 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProviderWrapper session={session}>
+          <Navbar currentUser={currentUser} />
+
           {children}
         </SessionProviderWrapper>
       </body>
