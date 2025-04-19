@@ -31,7 +31,7 @@ const Navbar = ({ currentUser }) => {
   }, [currentUser, rentModal, loginModal]);
 
   return (
-    <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-50">
+    <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-5000">
       <div className="flex items-center cursor-pointer gap-2">
         <Image
           src="/images/logo.jpg"

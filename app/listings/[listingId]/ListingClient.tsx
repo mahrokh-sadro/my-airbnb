@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
-
 import HeartButton from "@/app/components/listing/HeartButton";
 import { getCountryByValue } from "@/app/utils/getCountryByValue";
 import { useCallback, useMemo, useState } from "react";
@@ -19,14 +18,15 @@ interface ListingClientProps {
   currentUser: User | null;
   reservations?: Reservation[];
 }
+
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: "selection",
 };
-const Map = dynamic(() => import("@/app/components/Map"), {
-  ssr: false,
-});
+
+const Map = dynamic(() => import("@/app/components/Map"), { ssr: false });
+
 const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   currentUser,
@@ -35,38 +35,33 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const router = useRouter();
   const location = getCountryByValue(listing.locationValue);
   const coordinates = location?.latlng || [51.505, -0.09];
+
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const [isLoading, setIsLoading] = useState(false);
   const loginModal = useLoginModal();
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
-
     reservations.forEach((reservation) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate),
       });
-
       dates = [...dates, ...range];
     });
-
     return dates;
   }, [reservations]);
 
-  // const totalPrice = useMemo(() => {
-  //   return listing.price*
-  // }, [reservations, dateRange]);
   const numberOfNights = useMemo(() => {
     const start = dateRange.startDate!;
     const end = dateRange.endDate!;
     return differenceInCalendarDays(end, start) || 1;
   }, [dateRange]);
 
-  // 💰 Calculate total price
-  const totalPrice = useMemo(() => {
-    return listing.price * numberOfNights;
-  }, [listing.price, numberOfNights]);
+  const totalPrice = useMemo(
+    () => listing.price * numberOfNights,
+    [listing.price, numberOfNights]
+  );
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -92,10 +87,10 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
-  }, [dateRange, listing?.id, totalPrice, router, currentUser, loginModal]);
+  }, [dateRange, listing.id, totalPrice, router, currentUser, loginModal]);
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
       <div className="relative w-full h-[400px] rounded-xl overflow-hidden">
         <Image
           src={listing.image}
@@ -108,25 +103,33 @@ const ListingClient: React.FC<ListingClientProps> = ({
         </div>
       </div>
 
-      <div className="mt-6">
+      <div>
         <h1 className="text-3xl font-bold">{listing.title}</h1>
         <p className="text-gray-600 mt-2">{listing.description}</p>
         <div className="text-lg mt-4">
-          <span className="font-semibold">${listing.price}</span> night
+          <span className="font-semibold">${listing.price}</span> per night
         </div>
       </div>
-      <hr />
-      <Map center={coordinates} />
 
-      <ListingReservation
-        price={listing.price}
-        totalPrice={totalPrice}
-        dateRange={dateRange}
-        onChangeDate={setDateRange}
-        onSubmit={onCreateReservation}
-        disabled={isLoading}
-        disabledDates={disabledDates}
-      />
+      <hr />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="h-[400px] rounded-xl overflow-hidden">
+          <Map center={coordinates} />
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow-md">
+          <ListingReservation
+            price={listing.price}
+            totalPrice={totalPrice}
+            dateRange={dateRange}
+            onChangeDate={setDateRange}
+            onSubmit={onCreateReservation}
+            disabled={isLoading}
+            disabledDates={disabledDates}
+          />
+        </div>
+      </div>
     </div>
   );
 };
