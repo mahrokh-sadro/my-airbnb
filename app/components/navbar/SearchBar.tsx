@@ -1,13 +1,19 @@
 "use client";
 
+import useSearchModal from "@/app/hooks/useSearchModal";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React from "react";
 
 export default function SearchBar() {
   const [alignment, setAlignment] = React.useState("web");
+  const searchModal = useSearchModal();
+
   const handleChange = () => {};
   return (
-    <div className="border rounded-full px-4 py-1 shadow-md hover:shadow-lg transition duration-200 ease-in-out bg-white w-[350px]">
+    <div
+      onClick={searchModal.onOpen}
+      className="border rounded-full px-4 py-1 shadow-md hover:shadow-lg transition duration-200 ease-in-out bg-white w-[350px]"
+    >
       <ToggleButtonGroup
         color="standard"
         value={alignment}

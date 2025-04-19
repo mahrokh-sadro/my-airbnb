@@ -7,6 +7,7 @@ import RentModal from "./components/modal/RentModal";
 import Categories from "./components/Categories";
 import ListingCard from "./components/listing/ListingCard";
 import { Toaster } from "react-hot-toast";
+import SearchModal from "./components/modal/SearchModal";
 
 export default async function Home({
   searchParams,
@@ -27,7 +28,7 @@ export default async function Home({
       <RentModal />
       <Categories />
       <Toaster />
-
+      <SearchModal />
       {listings.length === 0 ? (
         <div className="flex justify-center items-center h-[40vh] text-gray-600 text-lg">
           No listings available.
