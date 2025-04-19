@@ -99,10 +99,10 @@ const LoginModal = ({ currentUser }) => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      <Button variant="contained" onClick={() => signIn("google")}>
+      <Button variant="contained" onClick={() => signIn("google")} fullWidth>
         Continue with Google
       </Button>
-      <Button variant="contained" onClick={() => signIn("github")}>
+      <Button variant="contained" onClick={() => signIn("github")} fullWidth>
         Continue with Github
       </Button>
       <div className=" text-neutral-300      ">
@@ -127,7 +127,7 @@ const LoginModal = ({ currentUser }) => {
       onSubmit={handleSubmit(onSubmit)}
       title="Login"
       body={bodyContent}
-      actionLabel={isLoading ? "Submitting..." : "Continue"}
+      actionLabel={"Login"}
       footer={footerContent}
     />
   );

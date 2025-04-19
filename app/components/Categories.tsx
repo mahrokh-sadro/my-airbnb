@@ -10,13 +10,14 @@ import { categories } from "./constants/categoriesArray";
 
 const Categories = () => {
   const settings = {
-    dots: true,
+    // dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 10,
     slidesToScroll: 1,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 2000,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -66,16 +67,22 @@ const Categories = () => {
   const selectedCategory = params?.get("category");
 
   return (
-    <div className="my-8 px-4">
+    <div className="my-8 ">
       <Slider {...settings}>
         {categories.map((category, index) => (
           <div
             key={index}
-            className={`flex flex-col justify-center items-center rounded-md shadow-sm transform transition duration-300 hover:scale-105 hover:shadow-md p-2 cursor-pointer ${
-              selectedCategory === category.name
-                ? "bg-blue-100 border border-blue-500"
-                : "bg-white"
-            }`}
+            className={`
+              flex flex-col justify-center items-center
+              rounded-md transform transition duration-300
+              hover:scale-105 hover:shadow-md p-2 cursor-pointer
+               
+              ${
+                selectedCategory === category.name
+                  ? "border bg-blue-100 border-blue-500"
+                  : ""
+              }
+            `}
             onClick={() => handleClick(category.name)}
           >
             <div className="flex items-center justify-center mb-2">

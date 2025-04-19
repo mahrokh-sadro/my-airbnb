@@ -21,31 +21,34 @@ const UserMenu: React.FC = ({ currentUser }) => {
         <>
           <ul>
             <li
-              className="py-2 hover:bg-gray-100"
+              className="py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => router.push("/trips")}
             >
               My Trips
             </li>
             <li
-              className="py-2 hover:bg-gray-100"
+              className="py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => router.push("/favorites")}
             >
               MY Favorites
             </li>
             <li
-              className="py-2 hover:bg-gray-100"
+              className="py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => router.push("/reservations")}
             >
               My Reservations
             </li>
             <li
-              className="py-2 hover:bg-gray-100"
+              className="py-2 hover:bg-gray-100 cursor-pointer"
               onClick={() => router.push("/properties")}
             >
               My Properties
             </li>
             <hr className="border-b my-2" />
-            <li className="py-2 hover:bg-gray-100" onClick={() => signOut()}>
+            <li
+              className="py-2 hover:bg-gray-100 cursor-pointer"
+              onClick={() => signOut()}
+            >
               Logout
             </li>
           </ul>
@@ -53,11 +56,14 @@ const UserMenu: React.FC = ({ currentUser }) => {
       ) : (
         <>
           <ul>
-            <li className="py-2 hover:bg-gray-100" onClick={loginModal.onOpen}>
+            <li
+              className="py-2 hover:bg-gray-100 cursor-pointer"
+              onClick={loginModal.onOpen}
+            >
               Login
             </li>
             <li
-              className="py-2 hover:bg-gray-100"
+              className="py-2 hover:bg-gray-100 cursor-pointer"
               onClick={registerModal.onOpen}
             >
               Sign up

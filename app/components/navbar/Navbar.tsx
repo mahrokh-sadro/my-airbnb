@@ -31,12 +31,12 @@ const Navbar = ({ currentUser }) => {
   }, [currentUser, rentModal, loginModal]);
 
   return (
-    <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-5000">
+    <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-1000">
       <div className="flex items-center cursor-pointer gap-2">
         <Image
           src="/images/logo.jpg"
           alt="Logo"
-          width={45}
+          width={85}
           height={45}
           className="object-contain rounded-full"
           onClick={() => router.push("/")}

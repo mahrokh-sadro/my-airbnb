@@ -94,18 +94,25 @@ const Modal: FC<ModalProps> = ({
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers>
+        <DialogContent>
           <div>{body}</div>
         </DialogContent>
-        <DialogContent>{footer}</DialogContent>
         <DialogActions>
           {secondaryAction && secondaryActionLabel && (
-            <Button onClick={handleSecondaryAction}>secondary</Button>
+            <Button onClick={handleSecondaryAction} variant="contained">
+              {secondaryActionLabel}
+            </Button>
           )}
-          <Button autoFocus className="w-full" onClick={handleSubmit}>
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            fullWidth
+            className="!mx-2"
+          >
             {actionLabel}
           </Button>
         </DialogActions>
+        <DialogContent>{footer}</DialogContent>
       </BootstrapDialog>
     </>
   );

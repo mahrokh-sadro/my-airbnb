@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import UserMenu from "./UserManu";
 import { User } from "@prisma/client";
+import { FaBars } from "react-icons/fa";
 
 interface AvatarProps {
   currentUser?: User;
@@ -17,14 +18,21 @@ const Avatar = ({ currentUser }) => {
   };
 
   return (
-    <div className="cursor-pointer" onClick={onClick}>
-      <Image
-        className="rounded-full object-contain"
-        src={currentUser?.image || "/images/1.jpg"}
-        alt="Logo"
-        width={30}
-        height={30}
-      />
+    <div className="relative">
+      <div
+        onClick={onClick}
+        className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-3 shadow-sm hover:shadow-md cursor-pointer transition"
+      >
+        <FaBars className="text-gray-600 text-sm" />
+        <Image
+          className="rounded-full"
+          src={currentUser?.image || "/images/1.jpg"}
+          alt="User"
+          width={30}
+          height={30}
+        />
+      </div>
+
       {isMenuOpen && <UserMenu currentUser={currentUser} />}
     </div>
   );
