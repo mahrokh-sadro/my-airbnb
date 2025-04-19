@@ -45,9 +45,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       >
         Reserve
       </Button>
-      <hr />
+      {/* <hr /> */}
 
-      <div className="flex justify-between text-lg font-semibold">
+      <div className="flex justify-between text-lg font-semibold mt-4">
         <span>Total</span>
         <span>${totalPrice}</span>
       </div>

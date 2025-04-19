@@ -12,13 +12,29 @@ import SearchModal from "./components/modal/SearchModal";
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: { category?: string };
+  searchParams?: {
+    category?: string;
+    locationValue?: string;
+    guestCount?: string;
+    roomCount?: string;
+    bathroomCount?: string;
+    startDate?: string;
+    endDate?: string;
+  };
 }) {
   const currentUser = await getCurrentUser();
   const paramsData = await searchParams;
 
   const listings = await getListings({
     category: paramsData?.category,
+    locationValue: paramsData?.locationValue,
+    guestCount: paramsData?.guestCount ? +paramsData.guestCount : undefined,
+    roomCount: paramsData?.roomCount ? +paramsData.roomCount : undefined,
+    bathroomCount: paramsData?.bathroomCount
+      ? +paramsData.bathroomCount
+      : undefined,
+    startDate: paramsData?.startDate,
+    endDate: paramsData?.endDate,
   });
 
   return (

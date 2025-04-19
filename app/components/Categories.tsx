@@ -15,7 +15,7 @@ const Categories = () => {
     speed: 1000,
     slidesToShow: 10,
     slidesToScroll: 1,
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 2000,
     arrows: false,
     responsive: [
