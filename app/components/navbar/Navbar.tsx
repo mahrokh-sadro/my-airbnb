@@ -45,9 +45,9 @@ const Navbar = ({ currentUser }) => {
         />
       </div>
 
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <SearchBar />
-      </div>
+      </div> */}
 
       <div className="flex items-center gap-4">
         <div

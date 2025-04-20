@@ -8,6 +8,7 @@ import Categories from "./components/Categories";
 import ListingCard from "./components/listing/ListingCard";
 import { Toaster } from "react-hot-toast";
 import SearchModal from "./components/modal/SearchModal";
+import SearchBar from "./components/navbar/SearchBar";
 
 export default async function Home({
   searchParams,
@@ -45,13 +46,22 @@ export default async function Home({
       <Categories />
       <Toaster />
       <SearchModal /> */}
+      <div className="flex items-center justify-between px-4 mt-1 gap-4">
+        <div className="flex-grow overflow-hidden">
+          <Categories />
+        </div>
+
+        <div className="hidden md:block shrink-0">
+          <SearchBar />
+        </div>
+      </div>
 
       {listings.length === 0 ? (
         <div className="flex justify-center items-center h-[40vh] text-gray-600 text-lg">
           No listings available.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-1 px-4">
           {listings.map((listing) => (
             <ListingCard
               key={listing.id}

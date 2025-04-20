@@ -67,7 +67,7 @@ const SearchModal: React.FC<SearchModalProps> = () => {
 
     const updatedQuery: any = {
       ...currentQuery,
-      locationValue: location?.value,
+      locationValue: location?.label,
       guestCount,
       roomCount,
       bathroomCount,

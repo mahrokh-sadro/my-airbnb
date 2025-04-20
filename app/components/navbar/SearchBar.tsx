@@ -3,6 +3,7 @@
 import useSearchModal from "@/app/hooks/useSearchModal";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React from "react";
+import { FaSearch, FaSlidersH } from "react-icons/fa";
 
 export default function SearchBar() {
   const [alignment, setAlignment] = React.useState("web");
@@ -12,39 +13,22 @@ export default function SearchBar() {
   return (
     <div
       onClick={searchModal.onOpen}
-      className="border rounded-full px-4 py-1 shadow-md hover:shadow-lg transition duration-200 ease-in-out bg-white w-[350px]"
+      className="flex items-center justify-between bg-white border rounded-md	 border-gray-300 px-3 py-2 shadow-sm hover:shadow-md transition duration-200 ease-in-out cursor-pointer w-[110px] max-w-full"
     >
+      <div className="flex items-center justify-center  rounded-full p-2 mr-3">
+        <FaSlidersH className="text-gray-600 text-lg" />
+      </div>
+
+      <span className="text-sm text-gray-600">Filters</span>
+
       <ToggleButtonGroup
         color="standard"
         value={alignment}
         exclusive
         onChange={handleChange}
-        aria-label="Platform"
-        className="gap-1"
-        sx={{
-          "& .MuiToggleButton-root": {
-            border: "none",
-            borderRadius: "9999px",
-            textTransform: "none",
-            padding: "8px 16px",
-            fontWeight: "500",
-            fontSize: "0.875rem",
-            color: "#555",
-            "&:hover": {
-              backgroundColor: "#f5f5f5",
-            },
-            "&.Mui-selected": {
-              backgroundColor: "#eeeeee",
-              color: "#000",
-              fontWeight: 600,
-            },
-          },
-        }}
-      >
-        <ToggleButton value="location">Anywhere</ToggleButton>
-        <ToggleButton value="time">Any week</ToggleButton>
-        <ToggleButton value="guest">Add guest</ToggleButton>
-      </ToggleButtonGroup>
+        aria-label="Search filter"
+        className="flex items-center gap-2"
+      ></ToggleButtonGroup>
     </div>
   );
 }

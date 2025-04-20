@@ -33,7 +33,6 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  // Fetch session from server-side using getServerSession
   const session = await getServerSession(authOptions);
   const currentUser = await getCurrentUser();
 
