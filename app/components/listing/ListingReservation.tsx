@@ -34,7 +34,6 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         disabledDates={disabledDates}
       />
 
-      {/* <Button disabled={disabled} label="Reserve" onClick={onSubmit} /> */}
       <Button
         variant="contained"
         color="primary"

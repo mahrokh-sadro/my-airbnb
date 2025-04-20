@@ -31,8 +31,6 @@ const Navbar = ({ currentUser }) => {
     }
     rentModal.onOpen();
   }, [currentUser, rentModal, loginModal]);
-  const hideSearchBar =
-    pathname?.startsWith("/listings/") && pathname?.split("/").length === 3;
 
   return (
     <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-1000">
@@ -47,11 +45,13 @@ const Navbar = ({ currentUser }) => {
         />
       </div>
 
-      {!hideSearchBar && <SearchBar />}
+      <div className="hidden md:block">
+        <SearchBar />
+      </div>
 
       <div className="flex items-center gap-4">
         <div
-          className="flex items-center gap-2 cursor-pointer"
+          className="hidden md:flex items-center gap-2 cursor-pointer"
           onClick={onRent}
         >
           <span className="text-sm font-medium">Airbnb your home</span>

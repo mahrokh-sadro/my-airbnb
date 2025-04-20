@@ -97,21 +97,29 @@ const Modal: FC<ModalProps> = ({
         <DialogContent>
           <div>{body}</div>
         </DialogContent>
-        <DialogActions>
-          {secondaryAction && secondaryActionLabel && (
-            <Button onClick={handleSecondaryAction} variant="contained">
-              {secondaryActionLabel}
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <div style={{ display: "flex", gap: "12px", width: "100%" }}>
+            {secondaryAction && secondaryActionLabel && (
+              <Button
+                onClick={handleSecondaryAction}
+                variant="outlined"
+                fullWidth
+                disabled={disabled}
+              >
+                {secondaryActionLabel}
+              </Button>
+            )}
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              fullWidth
+              disabled={disabled}
+            >
+              {actionLabel}
             </Button>
-          )}
-          <Button
-            onClick={handleSubmit}
-            variant="contained"
-            fullWidth
-            className="!mx-2"
-          >
-            {actionLabel}
-          </Button>
+          </div>
         </DialogActions>
+
         <DialogContent>{footer}</DialogContent>
       </BootstrapDialog>
     </>

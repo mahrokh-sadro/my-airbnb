@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { FC } from "react";
 
-// Lazy load Navbar with SSR disabled
 const Navbar = dynamic(() => import("./Navbar"), {
   ssr: false,
 });

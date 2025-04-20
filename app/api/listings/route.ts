@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       roomCount: body.roomCount,
       bathroomCount: body.bathroomCount,
       guestCount: body.guestCount,
-      locationValue: body.location.value,
+      locationValue: body.location.label,
       image: body.image,
       userId: currentUser?.id,
     },

@@ -27,11 +27,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const handleHeartClick = () => {};
 
   return (
-    <div
-      onClick={() => router.push(`/listings/${data.id}`)}
-      className="cursor-pointer group"
-    >
-      <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+    <div className=" group">
+      <div
+        className="aspect-square w-full relative overflow-hidden rounded-xl cursor-pointer"
+        onClick={() => router.push(`/listings/${data.id}`)}
+      >
         <Image
           fill
           className="object-cover group-hover:scale-110 transition"

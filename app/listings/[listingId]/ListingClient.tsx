@@ -114,7 +114,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       <hr />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="h-[400px] rounded-xl overflow-hidden">
+        <div className="h-[400px]  p-6 rounded-xl overflow-hidden shadow-md">
           <Map center={coordinates} />
         </div>
 

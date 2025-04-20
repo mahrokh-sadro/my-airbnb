@@ -60,8 +60,6 @@ const RentModal = ({ currentUser }) => {
   const rentModal = useRentModal();
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
-  // const onNext = () => setStep((prev) => prev + 1);
-  // const onBack = () => setStep((prev) => prev - 1);
   const onNext = () => setStep((prev) => prev + 1);
   const onBack = () => setStep((prev) => prev - 1);
   const actionLabel = step === STEPS.PRICE ? "Create" : "Next";
@@ -103,6 +101,7 @@ const RentModal = ({ currentUser }) => {
   const image = watch("image");
   const price = watch("price");
 
+  console.log("location", location);
   const Map = useMemo(
     () =>
       dynamic(() => import("@/app/components/Map"), {
@@ -263,14 +262,6 @@ const RentModal = ({ currentUser }) => {
             disabled={isLoading}
             errors={errors}
             required
-            // onChange={(e) => {
-            //   setValue("price", Number(e.target.value), {
-            //     shouldValidate: true,
-            //     shouldDirty: true,
-            //   });
-            // }}
-            // className="w-full mt-1 p-2 border border-gray-300 rounded-md"
-            // placeholder="Enter your price"
           />
         </div>
 
@@ -299,7 +290,11 @@ const RentModal = ({ currentUser }) => {
 
   return (
     <Modal
-      disabled={isLoading}
+      disabled={
+        isLoading ||
+        (step === STEPS.DESCRIPTION &&
+          (!watch("description") || watch("description").trim() === ""))
+      }
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
       onSubmit={step === STEPS.PRICE ? handleSubmit(onSubmit) : onNext}

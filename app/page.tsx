@@ -39,12 +39,12 @@ export default async function Home({
 
   return (
     <div>
-      <RegisterModal />
+      {/* <RegisterModal />
       <LoginModal />
       <RentModal />
       <Categories />
       <Toaster />
-      <SearchModal />
+      <SearchModal /> */}
 
       {listings.length === 0 ? (
         <div className="flex justify-center items-center h-[40vh] text-gray-600 text-lg">

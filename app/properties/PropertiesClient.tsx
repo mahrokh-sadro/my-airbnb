@@ -6,6 +6,7 @@ import Heading from "../components/Heading";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 interface PropertiesClientProps {
   listings: Listing[];
@@ -17,6 +18,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   currentUser,
 }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   if (!currentUser) {
     return (
       <div className="p-4 text-center text-xl">
@@ -25,6 +27,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
     );
   }
   const onDelete = (listingId: string) => {
+    setLoading(true);
     axios
       .delete(`/api/listings/${listingId}`)
       .then(() => {
@@ -33,6 +36,9 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
       })
       .catch(() => {
         toast.error("Something went wrong");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
