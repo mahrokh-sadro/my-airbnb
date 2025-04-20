@@ -55,7 +55,6 @@ const Modal: FC<ModalProps> = ({
   const handleSubmit = useCallback(() => {
     if (disabled) return;
     onSubmit();
-    // handleClose();
   }, [disabled, onSubmit]);
 
   const handleClose = useCallback(() => {

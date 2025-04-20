@@ -23,7 +23,6 @@ export default async function getListings(params: IListingsParams = {}) {
       endDate,
       locationValue,
     } = await params;
-    console.log("locationValue", locationValue);
     const query: any = {};
 
     if (userId) {

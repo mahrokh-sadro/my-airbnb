@@ -10,7 +10,6 @@ import { categories } from "./constants/categoriesArray";
 
 const Categories = () => {
   const settings = {
-    // dots: true,
     infinite: true,
     speed: 1000,
     slidesToShow: 10,

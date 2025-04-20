@@ -15,7 +15,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { User } from "@prisma/client";
 
-// Zod schema for validation
 const schema = z.object({
   email: z.string().email(),
   password: z.string(),
@@ -32,7 +31,6 @@ const LoginModal = ({ currentUser }) => {
   const loginModal = useLoginModal();
 
   const [isLoading, setIsLoading] = useState(false);
-  // const router = useRouter();
 
   const {
     register,

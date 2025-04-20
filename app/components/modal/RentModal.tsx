@@ -101,7 +101,6 @@ const RentModal = ({ currentUser }) => {
   const image = watch("image");
   const price = watch("price");
 
-  console.log("location", location);
   const Map = useMemo(
     () =>
       dynamic(() => import("@/app/components/Map"), {
@@ -116,7 +115,6 @@ const RentModal = ({ currentUser }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-h-[50vh] overflow-y-auto gap-3">
         {categories.map((item) => (
           <div key={item.name} className="col-span-1">
-            {/* {item.name} */}
             <CategoryInput
               onClick={() =>
                 setValue("category", item.name, {

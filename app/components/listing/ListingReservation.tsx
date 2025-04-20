@@ -44,7 +44,6 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       >
         Reserve
       </Button>
-      {/* <hr /> */}
 
       <div className="flex justify-between text-lg font-semibold mt-4">
         <span>Total</span>

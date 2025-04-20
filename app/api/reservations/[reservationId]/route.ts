@@ -24,7 +24,7 @@ export async function DELETE(
 
   const reservation = await prisma.reservation.findUnique({
     where: { id: reservationId },
-    include: { listing: true }, // This will let us check if the currentUser is the host of the listing
+    include: { listing: true },
   });
 
   if (

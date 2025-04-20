@@ -2,7 +2,7 @@ import getListings from "@/app/actions/getListings";
 import PropertiesClient from "./PropertiesClient";
 import { getCurrentUser } from "../actions/getCurrentUser";
 
-export const dynamic = "force-dynamic"; // optional, ensures fresh data on each load
+export const dynamic = "force-dynamic";
 
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();

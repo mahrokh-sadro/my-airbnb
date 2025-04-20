@@ -41,8 +41,6 @@ const FavoritesClient: React.FC<FavoritesClientProps> = ({
             key={listing.id}
             data={listing}
             currentUser={currentUser}
-            // actionLabel="Remove from favorites"
-            // onAction={onRemoveFavorite}
             disabled={isPending}
           />
         ))}

@@ -45,10 +45,6 @@ const Navbar = ({ currentUser }) => {
         />
       </div>
 
-      {/* <div className="hidden md:block">
-        <SearchBar />
-      </div> */}
-
       <div className="flex items-center gap-4">
         <div
           className="hidden md:flex items-center gap-2 cursor-pointer"

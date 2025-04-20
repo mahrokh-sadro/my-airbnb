@@ -9,7 +9,7 @@ export default function SessionProviderWrapper({
   session,
 }: {
   children: ReactNode;
-  session: any; // Session type here
+  session: any;
 }) {
   return <SessionProvider session={session}>{children}</SessionProvider>;
 }

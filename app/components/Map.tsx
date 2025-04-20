@@ -14,7 +14,7 @@ L.Icon.Default.mergeOptions({
 });
 
 interface MapProps {
-  center: [number, number]; // LatLngTuple
+  center: [number, number];
 }
 
 const RecenterAndFixTiles = ({ center }: { center: [number, number] }) => {
@@ -23,7 +23,7 @@ const RecenterAndFixTiles = ({ center }: { center: [number, number] }) => {
   useEffect(() => {
     map.setView(center, map.getZoom());
     setTimeout(() => {
-      map.invalidateSize(); // Fix tile loading
+      map.invalidateSize();
     }, 100);
   }, [center, map]);
 
@@ -42,9 +42,7 @@ const Map = ({ center }: MapProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={center as L.LatLngExpression}>
-        {/* <Popup>Selected location</Popup> */}
-      </Marker>
+      <Marker position={center as L.LatLngExpression}></Marker>
       <RecenterAndFixTiles center={center} />
     </MapContainer>
   );

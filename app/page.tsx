@@ -40,12 +40,6 @@ export default async function Home({
 
   return (
     <div>
-      {/* <RegisterModal />
-      <LoginModal />
-      <RentModal />
-      <Categories />
-      <Toaster />
-      <SearchModal /> */}
       <div className="flex items-center justify-between px-4 mt-1 gap-4">
         <div className="flex-grow overflow-hidden">
           <Categories />

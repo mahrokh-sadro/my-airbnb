@@ -33,7 +33,6 @@ const Input: React.FC<InputProps> = ({
       disabled={disabled}
       error={!!errors[id]}
       helperText={errors[id]?.message}
-      // {...register(id, { required })}
       {...register(id, {
         required,
         ...(type === "number" && { valueAsNumber: true }),

@@ -31,9 +31,6 @@ const HeartButton: React.FC<HeartButtonProps> = ({
     if (!currentUser) {
       return loginModal.onOpen();
     }
-    // if (!currentUser) {
-    //   return toast.error("Please log in to favorite listings.");
-    // }
 
     setLoading(true);
 
@@ -46,9 +43,9 @@ const HeartButton: React.FC<HeartButtonProps> = ({
         toast.success("Added to favorites");
       }
 
-      router.refresh(); // Refetch data and re-render
+      router.refresh();
     } catch (error) {
-      // toast.error("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

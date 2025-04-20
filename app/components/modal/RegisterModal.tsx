@@ -14,7 +14,6 @@ import { Button } from "@mui/material";
 import { sign } from "crypto";
 import useLoginModal from "@/app/hooks/useLoginModal";
 
-// Zod schema for validation
 const schema = z.object({
   email: z.string().email(),
   name: z.string().min(2),
@@ -49,19 +48,6 @@ const RegisterModal = () => {
       setIsLoading(false);
     }
   };
-
-  // const handleGitHubSignIn = async () => {
-  //   const response = await signIn("github", {
-  //     redirect: false,
-  //     // callbackUrl: "/",
-  //   });
-
-  //   if (response?.error) {
-  //     alert("Error during GitHub login: " + response.error);
-  //   } else {
-  //     // router.push("/dashboard");
-  //   }
-  // };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -103,7 +89,6 @@ const RegisterModal = () => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      {/* <hr className="w-full" /> */}
       <Button variant="contained" onClick={() => signIn("google")}>
         Continue with Google
       </Button>
