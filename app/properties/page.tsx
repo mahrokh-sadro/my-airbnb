@@ -14,7 +14,7 @@ const PropertiesPage = async () => {
     );
   }
 
-  const listings = await getListings(currentUser.id);
+  const listings = await getListings({ userId: currentUser.id });
 
   return <PropertiesClient listings={listings} currentUser={currentUser} />;
 };

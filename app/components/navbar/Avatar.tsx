@@ -33,7 +33,14 @@ const Avatar = ({ currentUser }) => {
         />
       </div>
 
-      {isMenuOpen && <UserMenu currentUser={currentUser} />}
+      {isMenuOpen && (
+        <UserMenu
+          currentUser={currentUser}
+          setIsMenuOpen={setIsMenuOpen}
+          isMenuOpen={isMenuOpen}
+          onClick={onClick}
+        />
+      )}
     </div>
   );
 };

@@ -8,9 +8,12 @@ import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   currentUser?: any;
+  setIsMenuOpen?: any;
+  isMenuOpen?: any;
+  onClick?: any;
 }
 
-const UserMenu: React.FC = ({ currentUser }) => {
+const UserMenu: React.FC = ({ currentUser, setIsMenuOpen }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -22,25 +25,37 @@ const UserMenu: React.FC = ({ currentUser }) => {
           <ul>
             <li
               className="py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => router.push("/trips")}
+              onClick={() => {
+                router.push("/trips");
+                setIsMenuOpen(false);
+              }}
             >
               My Trips
             </li>
             <li
               className="py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => router.push("/favorites")}
+              onClick={() => {
+                router.push("/favorites");
+                setIsMenuOpen(false);
+              }}
             >
               MY Favorites
             </li>
             <li
               className="py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => router.push("/reservations")}
+              onClick={() => {
+                router.push("/reservations");
+                setIsMenuOpen(false);
+              }}
             >
               My Reservations
             </li>
             <li
               className="py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => router.push("/properties")}
+              onClick={() => {
+                router.push("/properties");
+                setIsMenuOpen(false);
+              }}
             >
               My Properties
             </li>

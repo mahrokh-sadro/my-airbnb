@@ -13,6 +13,7 @@ import { FaGlobe } from "react-icons/fa";
 import useRentModal from "@/app/hooks/useRentModal";
 import LoginModal from "../modal/LoginModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { usePathname } from "next/navigation";
 
 interface NavbarProps {
   currentUser?: User;
@@ -22,6 +23,7 @@ const Navbar = ({ currentUser }) => {
   const router = useRouter();
   const rentModal = useRentModal();
   const loginModal = useLoginModal();
+  const pathname = usePathname();
 
   const onRent = useCallback(() => {
     if (!currentUser) {
@@ -29,6 +31,8 @@ const Navbar = ({ currentUser }) => {
     }
     rentModal.onOpen();
   }, [currentUser, rentModal, loginModal]);
+  const hideSearchBar =
+    pathname?.startsWith("/listings/") && pathname?.split("/").length === 3;
 
   return (
     <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-1000">
@@ -43,7 +47,7 @@ const Navbar = ({ currentUser }) => {
         />
       </div>
 
-      <SearchBar />
+      {!hideSearchBar && <SearchBar />}
 
       <div className="flex items-center gap-4">
         <div
@@ -51,7 +55,7 @@ const Navbar = ({ currentUser }) => {
           onClick={onRent}
         >
           <span className="text-sm font-medium">Airbnb your home</span>
-          <FaGlobe className="text-2xl text-blue-500" />
+          <FaGlobe className="text-2xl " />
         </div>
         <Avatar currentUser={currentUser} />
       </div>
