@@ -1,5 +1,5 @@
 // app/api/auth/[...nextauth]/route.ts
-// @ts-expect-error
+// @ts-expect-error TypeScript type mismatch with NextAuth API handler export
 
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
