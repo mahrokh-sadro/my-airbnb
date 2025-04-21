@@ -12,7 +12,7 @@ import Heading from "../Heading";
 import Calendar from "../inputs/Calendar";
 import CounterInput from "../inputs/CounterInput";
 
-interface SearchModalProps {}
+// interface SearchModalProps {}
 
 const STEPS = {
   LOCATION: 0,
