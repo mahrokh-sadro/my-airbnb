@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Airbnb Clone
 
-## Getting Started
+Welcome to **My Airbnb Clone**, a modern full-stack Airbnb clone built with **Next.js**, **Tailwind CSS**, **Prisma**, and **MongoDB**. This project aims to recreate the core functionalities of Airbnb, including user authentication, property listings, and reservations.
 
-First, run the development server:
+## 🛠️ Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Frontend**: Next.js, React, Tailwind CSS
+- **Backend**: Node.js, Prisma, MongoDB
+- **Authentication**: NextAuth.js (for secure login and session management)
+- **Hosting/Deployment**: Vercel (for frontend), MongoDB Atlas (for database)
+- **UI Styling**: Tailwind CSS, with custom styling for enhanced user experience
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **User Authentication**: Sign up, login, and session management with NextAuth.js
+- **Property Listings**: Browse, view, and filter available properties
+- **Reservations**: Make and view booking details for properties
+- **Search Functionality**: Search for properties by location and guest count
+- **Responsive UI**: Optimized for both desktop and mobile views
+- **Admin Interface**: Admins can add, edit, and remove property listings
+- **Custom Styling**: A clean, intuitive UI built with Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 Features to Add in Future Versions
 
-## Learn More
+- **Calendar Integration**: Availability check for properties (color highlights for available dates)
+- **Messaging System**: Communicate with property owners and renters
+- **Advanced Search Filters**: Price range, rating, and more granular filters for listings
+- **i18n Support**: Language toggle for international users
+- **Payment Integration**: Stripe for processing payments and bookings
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prerequisites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js (>=14.x)
+- MongoDB Atlas Account (for database)
+- GitHub Account
 
-## Deploy on Vercel
+### Setup & Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   git clone https://github.com/mahrokh-sadro/my-airbnb.git
+   cd my-airbnb
+   ```
