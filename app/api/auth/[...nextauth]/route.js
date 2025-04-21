@@ -1,4 +1,6 @@
 // app/api/auth/[...nextauth]/route.ts
+// @ts-expect-error
+
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
@@ -9,7 +11,7 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-const authOptions = {
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
 
   providers: [
@@ -81,4 +83,4 @@ const authOptions = {
 };
 
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST, authOptions };
+export { handler as GET, handler as POST };
