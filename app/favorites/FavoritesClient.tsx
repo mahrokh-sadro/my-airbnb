@@ -7,7 +7,7 @@ import { Listing, User } from "@prisma/client";
 import Heading from "../components/Heading";
 import ListingCard from "../components/listing/ListingCard";
 import { removeFavorite } from "../actions/removeFavorite";
-import router from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 interface FavoritesClientProps {
