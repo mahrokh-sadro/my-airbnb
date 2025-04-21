@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 declare global {
-  var prisma: PrismaClient | undefined;
+  let prisma: PrismaClient | undefined; // Change `var` to `let`
 }
 
 const client = globalThis.prisma || new PrismaClient();
