@@ -72,7 +72,7 @@ export default async function getListings(params: IListingsParams = {}) {
       },
     });
     return listings;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching listings:", error);
     throw new Error("Failed to fetch listings: " + error.message);
   }
