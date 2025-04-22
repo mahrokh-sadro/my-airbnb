@@ -56,7 +56,7 @@ const Categories = () => {
 
       const url = qs.stringifyUrl(
         { url: "/", query: newQuery },
-        { skipNulls: true }
+        { skipNull: true }
       );
 
       router.push(url);
