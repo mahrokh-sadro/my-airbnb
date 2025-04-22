@@ -52,7 +52,7 @@ export async function DELETE(request: NextRequest, context: any) {
       where: { id: currentUser.id },
       data: {
         favoriteIds: {
-          set: currentUser.favoriteIds.filter((id) => id !== listingId),
+          set: currentUser.favoriteIds.filter((id: any) => id !== listingId),
         },
       },
     });
