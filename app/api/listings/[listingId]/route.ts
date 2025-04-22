@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
-// ✅ This is the correct way to define the DELETE handler in a dynamic API route
 export async function DELETE(
   request: Request,
   context: { params: { listingId: string } }
