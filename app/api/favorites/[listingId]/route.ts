@@ -13,7 +13,8 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const listingId = context.params?.listingId;
+    const paramsData = await context.params;
+    const listingId = paramsData?.listingId;
 
     if (!listingId || typeof listingId !== "string") {
       return new NextResponse("Invalid ID", { status: 400 });
@@ -46,8 +47,8 @@ export async function DELETE(
     if (!currentUser) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-
-    const listingId = context.params?.listingId;
+    const paramsData = await context.params;
+    const listingId = paramsData?.listingId;
 
     if (!listingId || typeof listingId !== "string") {
       return new NextResponse("Invalid ID", { status: 400 });
