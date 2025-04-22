@@ -1,14 +1,15 @@
-// lib/authOptions.ts
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { NextAuthOptions } from "next-auth"; // Import NextAuthOptions
 
 const prisma = new PrismaClient();
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
+  // Type authOptions with NextAuthOptions
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
