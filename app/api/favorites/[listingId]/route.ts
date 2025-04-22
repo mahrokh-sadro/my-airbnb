@@ -3,10 +3,7 @@ import type { NextRequest } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
-export async function POST(
-  request: NextRequest,
-  context: any // 👈 Use `any` to bypass the Next.js type error
-) {
+export async function POST(request: NextRequest, context: any) {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
@@ -38,10 +35,7 @@ export async function POST(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  context: any // 👈 Same here
-) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
