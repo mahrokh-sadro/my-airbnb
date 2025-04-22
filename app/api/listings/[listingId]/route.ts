@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
 export async function DELETE(
   request: Request,
-  context: { params: { listingId: string } }
+  context: { params: Promise<{ listingId: string }> }
 ) {
   const { params } = context;
   const currentUser = await getCurrentUser();
@@ -13,7 +13,7 @@ export async function DELETE(
     return NextResponse.error();
   }
 
-  const listingId = params?.listingId;
+  const listingId = await params?.listingId;
 
   if (!listingId || typeof listingId !== "string") {
     return new NextResponse("Invalid ID", { status: 400 });
