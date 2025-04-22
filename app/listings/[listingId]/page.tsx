@@ -8,7 +8,11 @@ interface IParams {
   listingId: string;
 }
 
-export default async function ListingPage({ params }: { params: IParams }) {
+export default async function ListingPage({
+  params,
+}: {
+  params: Promise<IParams>;
+}) {
   const paramsData = await params;
   const listing = await getListingById(paramsData.listingId);
   const currentUser = await getCurrentUser();
