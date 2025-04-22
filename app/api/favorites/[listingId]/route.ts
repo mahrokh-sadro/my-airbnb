@@ -4,14 +4,14 @@ import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
 export async function POST(
   request: Request,
-  { params }: { params: { listingId: string } }
+  { params: { listingId } }: { params: { listingId: string } }
 ) {
   try {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) return NextResponse.error();
 
-    const { listingId } = await params;
+    // const { listingId } = await params;
 
     if (!listingId || typeof listingId !== "string") {
       throw new Error("Invalid ID");
@@ -38,14 +38,14 @@ export async function POST(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { listingId: string } }
+  { params: { listingId } }: { params: { listingId: string } }
 ) {
   try {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) return NextResponse.error();
 
-    const { listingId } = await params;
+    // const { listingId } = await params;
 
     if (!listingId || typeof listingId !== "string") {
       throw new Error("Invalid ID");
