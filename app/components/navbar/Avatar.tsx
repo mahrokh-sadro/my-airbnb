@@ -26,7 +26,7 @@ const Avatar = ({ currentUser }) => {
         <FaBars className="text-gray-600 text-sm" />
         <Image
           className="rounded-full"
-          src={currentUser?.image || "/images/1.jpg"}
+          src={currentUser?.image || "/images/icon.png"}
           alt="User"
           width={30}
           height={30}

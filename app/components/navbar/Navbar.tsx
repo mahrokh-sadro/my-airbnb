@@ -9,7 +9,7 @@ import UserMenu from "./UserManu";
 import { User } from "@prisma/client";
 import Categories from "../Categories";
 import { useRouter } from "next/navigation";
-import { FaGlobe } from "react-icons/fa";
+import { FaGlobe, FaGlobeAmericas, FaGlobeEurope } from "react-icons/fa";
 import useRentModal from "@/app/hooks/useRentModal";
 import LoginModal from "../modal/LoginModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -35,12 +35,17 @@ const Navbar = ({ currentUser }) => {
   return (
     <nav className="flex items-center justify-between p-4 shadow-md sticky top-0 bg-white z-1000">
       <div className="flex items-center cursor-pointer gap-2">
-        <Image
+        {/* <Image
           src="/images/logo.jpg"
           alt="Logo"
           width={85}
           height={45}
           className="object-contain rounded-full"
+          onClick={() => router.push("/")}
+        /> */}
+        <FaGlobeAmericas
+          className="text-5xl "
+          style={{ color: "#a08862" }}
           onClick={() => router.push("/")}
         />
       </div>
@@ -51,7 +56,7 @@ const Navbar = ({ currentUser }) => {
           onClick={onRent}
         >
           <span className="text-sm font-medium">Airbnb your home</span>
-          <FaGlobe className="text-2xl " />
+          <FaGlobe className="text-2xl " style={{ color: "#a08862" }} />
         </div>
         <Avatar currentUser={currentUser} />
       </div>
