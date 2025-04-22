@@ -13,7 +13,7 @@ export async function DELETE(
     return NextResponse.error();
   }
 
-  const listingId = await params?.listingId;
+  const listingId = (await params)?.listingId;
 
   if (!listingId || typeof listingId !== "string") {
     return new NextResponse("Invalid ID", { status: 400 });
