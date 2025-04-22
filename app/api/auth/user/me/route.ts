@@ -1,7 +1,7 @@
 // app/api/auth/me/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../[...nextauth]/route";
+import { authOptions } from "@/app/libs/authOptions";
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession({ req, ...authOptions });
