@@ -3,19 +3,24 @@ import type { NextRequest } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
-export async function POST(
-  request: NextRequest,
-  context: { params: { listingId: string } }
-) {
+type Params = {
+  params: {
+    listingId: string;
+  };
+};
+
+export async function POST(request: NextRequest, { params }: Params) {
   try {
     const currentUser = await getCurrentUser();
 
-    if (!currentUser) return NextResponse.error();
+    if (!currentUser) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
 
-    const listingId = context.params.listingId;
+    const { listingId } = await params;
 
     if (!listingId || typeof listingId !== "string") {
-      throw new Error("Invalid ID");
+      return new NextResponse("Invalid ID", { status: 400 });
     }
 
     const updatedUser = await prisma.user.update({
@@ -36,19 +41,18 @@ export async function POST(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  context: { params: { listingId: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     const currentUser = await getCurrentUser();
 
-    if (!currentUser) return NextResponse.error();
+    if (!currentUser) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
 
-    const listingId = context.params.listingId;
+    const { listingId } = await params;
 
     if (!listingId || typeof listingId !== "string") {
-      throw new Error("Invalid ID");
+      return new NextResponse("Invalid ID", { status: 400 });
     }
 
     const updatedUser = await prisma.user.update({
