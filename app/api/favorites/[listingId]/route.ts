@@ -3,13 +3,14 @@ import type { NextRequest } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
-type Params = {
-  params: {
-    listingId: string;
-  };
-};
+interface IParams {
+  listingId?: string;
+}
 
-export async function POST(request: NextRequest, { params }: Params) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: IParams }
+) {
   try {
     const currentUser = await getCurrentUser();
 
