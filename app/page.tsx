@@ -10,19 +10,21 @@ import { Toaster } from "react-hot-toast";
 import SearchModal from "./components/modal/SearchModal";
 import SearchBar from "./components/navbar/SearchBar";
 
+interface IParams {
+  category?: string;
+  locationValue?: string;
+  guestCount?: string;
+  roomCount?: string;
+  bathroomCount?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
 export default async function Home({
   searchParams,
-}: Promise<{
-  searchParams?: {
-    category?: string;
-    locationValue?: string;
-    guestCount?: string;
-    roomCount?: string;
-    bathroomCount?: string;
-    startDate?: string;
-    endDate?: string;
-  };
-}>) {
+}: {
+  params: Promise<IParams>;
+}) {
   const currentUser = await getCurrentUser();
   const paramsData = await searchParams;
 
