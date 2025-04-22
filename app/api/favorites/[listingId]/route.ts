@@ -3,13 +3,9 @@ import type { NextRequest } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import { getCurrentUser } from "@/app/actions/getCurrentUser";
 
-interface IParams {
-  listingId?: string;
-}
-
 export async function POST(
   request: NextRequest,
-  { params }: { params: IParams }
+  { params }: { params: { listingId: string } }
 ) {
   try {
     const currentUser = await getCurrentUser();
@@ -18,7 +14,7 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { listingId } = await params;
+    const listingId = params.listingId;
 
     if (!listingId || typeof listingId !== "string") {
       return new NextResponse("Invalid ID", { status: 400 });
@@ -42,7 +38,10 @@ export async function POST(
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: Params) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { listingId: string } }
+) {
   try {
     const currentUser = await getCurrentUser();
 
@@ -50,7 +49,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { listingId } = await params;
+    const listingId = params.listingId;
 
     if (!listingId || typeof listingId !== "string") {
       return new NextResponse("Invalid ID", { status: 400 });
