@@ -7,7 +7,7 @@ export async function DELETE(request: Request, context: any) {
 
   if (!currentUser) return NextResponse.error();
 
-  const paramsData = await context.params;
+  const paramsData = context.params;
   const listingId = paramsData?.listingId;
 
   if (!listingId || typeof listingId !== "string") {
