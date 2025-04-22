@@ -12,7 +12,7 @@ import SearchBar from "./components/navbar/SearchBar";
 
 export default async function Home({
   searchParams,
-}: {
+}: Promise<{
   searchParams?: {
     category?: string;
     locationValue?: string;
@@ -22,7 +22,7 @@ export default async function Home({
     startDate?: string;
     endDate?: string;
   };
-}) {
+}>) {
   const currentUser = await getCurrentUser();
   const paramsData = await searchParams;
 
