@@ -2,6 +2,14 @@
 
 Welcome to **My Airbnb Clone**, a modern full-stack Airbnb clone built with **Next.js**, **Tailwind CSS**, **Prisma**, and **MongoDB**. This project aims to recreate the core functionalities of Airbnb, including user authentication, property listings, and reservations.
 
+## 🌐 Live Demo
+
+👉 [https://my-airbnb-six.vercel.app](https://my-airbnb-six.vercel.app)
+
+## 📸 Demo
+
+![Demo](https://mahrokhsadro.netlify.app/images/airbnb.gif)
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js, React, Tailwind CSS
